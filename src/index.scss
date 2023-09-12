@@ -1,0 +1,9 @@
+@use "css/themes.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	color-scheme: light dark;
+}

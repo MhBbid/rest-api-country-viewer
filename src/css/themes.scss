@@ -1,0 +1,37 @@
+$background-color: null;
+$text-color: null;
+$element-color: null;
+$input-text-color: null;
+
+$light-mode: (
+	"background": hsl(0, 0%, 98%),
+	"text": hsl(200, 15%, 8%),
+	"elements": hsl(0, 0%, 100%),
+	"input-text": hsl(0, 0%, 52%)
+);
+
+$dark-mode: (
+	"background": hsl(207, 26%, 17%),
+	"text": hsl(0, 0%, 100%),
+	"elements": hsl(209, 23%, 22%),
+	"input-text": hsl(0, 0%, 100%)
+);
+
+@mixin theme-colors($theme) {
+	$background-color: map.get($theme, "background");
+	$text-color: map.get($theme, "text");
+	$element-color: map.get($theme, "elements");
+	$input-text-color: map-get($theme, "input-text");
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		@include theme-colors($light-mode)
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		@include theme-colors($dark-mode)
+	}
+}
