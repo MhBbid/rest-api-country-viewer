@@ -1,0 +1,59 @@
+:root {
+	color-scheme: light dark;
+}
+
+$light-mode: (
+	"background": hsl(0, 0%, 98%),
+	"text": hsl(200, 15%, 8%),
+	"elements": hsl(0, 0%, 100%),
+	"element-boxshadow": hsl(0, 0%, 95%),
+	"input-text": hsl(0, 0%, 52%)
+);
+
+$dark-mode: (
+	"background": hsl(207, 26%, 17%),
+	"text": hsl(0, 0%, 100%),
+	"elements": hsl(209, 23%, 22%),
+	"element-boxshadow": 	hsl(205, 27%, 16%),
+	"input-text": hsl(0, 0%, 100%)
+);
+
+// light theme:
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: map-get($light-mode, "background");
+	}
+
+	* {
+		color: map-get($light-mode, "text");
+	}
+
+	.default-background {
+		background-color: map-get($light-mode, "elements");
+		box-shadow: 0 0.25rem 0.25rem map-get($light-mode, "element-boxshadow");
+	}
+
+	input {
+		color: map-get($light-mode, "input-text");
+	}
+}
+
+// dark theme:
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: map-get($dark-mode, "background");
+	}
+
+	* {
+		color: map-get($dark-mode, "text");
+	}
+
+	.default-background {
+		background-color: map-get($dark-mode, "elements");
+		box-shadow: 0.5rem 1rem 3rem map-get($dark-mode, "element-boxshadow");
+	}
+
+	input {
+		color: map-get($dark-mode, "input-text");
+	}
+}
