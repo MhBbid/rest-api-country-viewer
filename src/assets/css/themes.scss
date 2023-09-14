@@ -19,7 +19,7 @@ $dark-mode: (
 );
 
 // light theme:
-@media (prefers-color-scheme: light) {
+.light {
 	body {
 		background-color: map-get($light-mode, "background");
 	}
@@ -39,7 +39,7 @@ $dark-mode: (
 }
 
 // dark theme:
-@media (prefers-color-scheme: dark) {
+.dark {
 	body {
 		background-color: map-get($dark-mode, "background");
 	}
