@@ -1,9 +1,10 @@
-import { useState } from "react";
-
+import { useEffect } from "react";
 import TopNav from "./components/TopNav";
-const rootElement = document.querySelector(":root");
+import { changeTheme, revertTheme } from "./util/changeTheme";
 
 export default function App() {
+  revertTheme();
+
   return (
     <>
       <TopNav />

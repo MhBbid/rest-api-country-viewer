@@ -2,7 +2,9 @@
 	color-scheme: light dark;
 }
 
-$light-mode: (
+$theme-class: ".light";
+
+$light-colors: (
 	"background": hsl(0, 0%, 98%),
 	"text": hsl(200, 15%, 8%),
 	"elements": hsl(0, 0%, 100%),
@@ -10,7 +12,7 @@ $light-mode: (
 	"input-text": hsl(0, 0%, 52%)
 );
 
-$dark-mode: (
+$dark-colors: (
 	"background": hsl(207, 26%, 17%),
 	"text": hsl(0, 0%, 100%),
 	"elements": hsl(209, 23%, 22%),
@@ -19,41 +21,61 @@ $dark-mode: (
 );
 
 // light theme:
-.light {
+@mixin light-mode {
 	body {
-		background-color: map-get($light-mode, "background");
+		background-color: map-get($light-colors, "background");
 	}
 
 	* {
-		color: map-get($light-mode, "text");
+		color: map-get($light-colors, "text");
 	}
 
 	.default-background {
-		background-color: map-get($light-mode, "elements");
-		box-shadow: 0 0.25rem 0.25rem map-get($light-mode, "element-boxshadow");
+		background-color: map-get($light-colors, "elements");
+		box-shadow: 0 0.25rem 0.25rem map-get($light-colors, "element-boxshadow");
 	}
 
 	input {
-		color: map-get($light-mode, "input-text");
+		color: map-get($light-colors, "input-text");
 	}
 }
 
 // dark theme:
-.dark {
+@mixin dark-mode {
 	body {
-		background-color: map-get($dark-mode, "background");
+		background-color: map-get($dark-colors, "background");
 	}
 
 	* {
-		color: map-get($dark-mode, "text");
+		color: map-get($dark-colors, "text");
 	}
 
 	.default-background {
-		background-color: map-get($dark-mode, "elements");
-		box-shadow: 0.5rem 1rem 3rem map-get($dark-mode, "element-boxshadow");
+		background-color: map-get($dark-colors, "elements");
+		box-shadow: 0.5rem 1rem 3rem map-get($dark-colors, "element-boxshadow");
 	}
 
 	input {
-		color: map-get($dark-mode, "input-text");
+		color: map-get($dark-colors, "input-text");
 	}
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		@include light-mode()
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		@include dark-mode()
+	}
+}
+
+.light {
+	@include light-mode()
+}
+
+.dark {
+	@include dark-mode()
 }
