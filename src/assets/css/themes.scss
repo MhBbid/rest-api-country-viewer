@@ -3,13 +3,14 @@
 }
 
 $theme-class: ".light";
+$theme-transition-duration: 1000ms;
 
 $light-colors: (
 	"background": hsl(0, 0%, 98%),
 	"text": hsl(200, 15%, 8%),
 	"elements": hsl(0, 0%, 100%),
 	"element-boxshadow": hsl(0, 0%, 95%),
-	"input-text": hsl(0, 0%, 52%)
+	"placeholder-text": hsl(0, 0%, 52%)
 );
 
 $dark-colors: (
@@ -17,26 +18,30 @@ $dark-colors: (
 	"text": hsl(0, 0%, 100%),
 	"elements": hsl(209, 23%, 22%),
 	"element-boxshadow": 	hsl(205, 27%, 16%),
-	"input-text": hsl(0, 0%, 100%)
+	"placeholder-text": hsl(0, 0%, 52%)
 );
 
 // light theme:
 @mixin light-mode {
 	body {
 		background-color: map-get($light-colors, "background");
+		transition-duration: $theme-transition-duration;
 	}
 
 	* {
 		color: map-get($light-colors, "text");
+		transition-duration: $theme-transition-duration;
+	}
+
+	svg {
+		fill: map-get($light-colors, "text");
+		transition-duration: calc($theme-transition-duration / 10);
 	}
 
 	.default-background {
 		background-color: map-get($light-colors, "elements");
 		box-shadow: 0 0.25rem 0.25rem map-get($light-colors, "element-boxshadow");
-	}
-
-	input {
-		color: map-get($light-colors, "input-text");
+		transition-duration: $theme-transition-duration;
 	}
 }
 
@@ -44,31 +49,23 @@ $dark-colors: (
 @mixin dark-mode {
 	body {
 		background-color: map-get($dark-colors, "background");
+		transition-duration: $theme-transition-duration;
 	}
 
 	* {
 		color: map-get($dark-colors, "text");
+		transition-duration: $theme-transition-duration;
+	}
+
+	svg {
+		fill: map-get($dark-colors, "text");
+		transition-duration: calc($theme-transition-duration / 10);
 	}
 
 	.default-background {
 		background-color: map-get($dark-colors, "elements");
 		box-shadow: 0.5rem 1rem 3rem map-get($dark-colors, "element-boxshadow");
-	}
-
-	input {
-		color: map-get($dark-colors, "input-text");
-	}
-}
-
-@media (prefers-color-scheme: light) {
-	:root {
-		@include light-mode()
-	}
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		@include dark-mode()
+		transition-duration: $theme-transition-duration;
 	}
 }
 

@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import TopNav from "./components/TopNav";
-import { changeTheme, revertTheme } from "./util/changeTheme";
+import HomePage from "./pages/HomePage";
+import TopNav from "./pages/TopNav";
 
 export default function App() {
-  revertTheme();
-
   return (
     <>
       <TopNav />
+      <div className="px-32 py-12">
+        <HomePage />
+      </div>
     </>
   );
 }
