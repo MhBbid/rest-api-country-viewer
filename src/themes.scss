@@ -1,0 +1,79 @@
+// on startup:
+body {
+	background-color: black;
+}
+
+$theme-transition: all 250ms, //so the rest of the properties can be animated too
+background-color 1000ms, color 1000ms, box-shadow 1000ms;
+
+$svg-theme-transition: fill 100ms;
+$light-colors: (
+	"background": hsl(0, 0%, 95%),
+	"text": hsl(200, 15%, 8%),
+	"elements": hsl(0, 0%, 100%),
+	"element-boxshadow": hsl(0, 0%, 85%),
+	"lighter-text": hsl(0, 0%, 52%)
+);
+$dark-colors: (
+	"background": hsl(207, 26%, 17%),
+	"text": hsl(0, 0%, 100%),
+	"elements": hsl(209, 23%, 22%),
+	"element-boxshadow": 	hsl(205, 27%, 16%),
+	"lighter-text": hsl(0, 0%, 66%)
+);
+
+// light theme:
+.light {
+	body {
+		background-color: map-get($light-colors, "background");
+		transition: $theme-transition;
+	}
+
+	* {
+		color: map-get($light-colors, "text");
+		transition: $theme-transition;
+	}
+
+	svg {
+		fill: map-get($light-colors, "text");
+		transition: $svg-theme-transition;
+	}
+
+	.default-background {
+		background-color: map-get($light-colors, "elements");
+		box-shadow: 0.5rem 1rem 3rem map-get($light-colors, "element-boxshadow");
+		transition: $theme-transition;
+	}
+
+	.lighter-text {
+		color: map-get($light-colors, "lighter-text");
+	}
+}
+
+// dark theme:
+.dark {
+	body {
+		background-color: map-get($dark-colors, "background");
+		transition: $theme-transition;
+	}
+
+	* {
+		color: map-get($dark-colors, "text");
+		transition: $theme-transition;
+	}
+
+	svg {
+		fill: map-get($dark-colors, "text");
+		transition: $svg-theme-transition;
+	}
+
+	.default-background {
+		background-color: map-get($dark-colors, "elements");
+		box-shadow: 0.5rem 1rem 3rem map-get($dark-colors, "element-boxshadow");
+		transition: $theme-transition;
+	}
+
+	.lighter-text {
+		color: map-get($dark-colors, "lighter-text");
+	}
+}
