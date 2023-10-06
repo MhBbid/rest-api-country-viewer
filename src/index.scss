@@ -1,24 +1,35 @@
 @use "themes.scss";
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 * {
 	font-family: 'Nunito Sans', sans-serif;
 	box-sizing: border-box;
+
+	user-select: none;
 	
 	padding: 0;
 	margin: 0;
 }
 
 .side-padding {
-	padding: 0 8%
+	padding: 0 10%
 }
 
 .bento-grid {
 	justify-content: center;
-	grid-template-columns: repeat(auto-fit, 18rem);
-	grid-auto-rows: 20rem;
+	grid-template-columns: repeat(auto-fit, 22rem);
+	grid-auto-rows: 30rem;
 }
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+}
+
+// tailwind down here so it doesn't get overwriten by the scss stuff
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

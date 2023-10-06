@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import SearchIcon from "../assets/SearchIcon";
+import { SearchBarProps } from "../util/customTypes";
 
-export default function SearchBar() {
-  // don't know what type to use so any it is
+export default function SearchBar(props: SearchBarProps) {
   const inputRef = useRef<any>();
 
   return (
-    <div className="default-background flex items-center px-8 py-4 gap-6 rounded-lg outline-1 focus-within:outline">
+    <div className="default-background flex items-center px-8 py-4 gap-6 rounded-lg outline-2 focus-within:outline">
       <SearchIcon
         onClick={() => {
           inputRef.current && inputRef.current.focus();
@@ -14,7 +14,8 @@ export default function SearchBar() {
       />
       <input
         ref={inputRef}
-        type="text"
+        onChange={props.onSearchChange}
+        type="search"
         placeholder="Search for a country..."
         className="bg-transparent w-full outline-none"
       />

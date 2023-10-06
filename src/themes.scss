@@ -1,79 +1,98 @@
-// on startup:
-body {
-	background-color: black;
+:root {
+	color-scheme: light dark;
 }
 
-$theme-transition: all 250ms, //so the rest of the properties can be animated too
-background-color 1000ms, color 1000ms, box-shadow 1000ms;
+$theme-transition: all 250ms, background-color 750ms, color 750ms, box-shadow 750ms;
 
-$svg-theme-transition: fill 100ms;
 $light-colors: (
 	"background": hsl(0, 0%, 95%),
 	"text": hsl(200, 15%, 8%),
 	"elements": hsl(0, 0%, 100%),
 	"element-boxshadow": hsl(0, 0%, 85%),
-	"lighter-text": hsl(0, 0%, 52%)
+
+	"lighter-text": hsl(0, 0%, 52%),
+	"scrollbar-thumb": hsl(0, 0%, 75%),
+	"scrollbar-track": hsl(0, 0%, 100%)
 );
+
 $dark-colors: (
 	"background": hsl(207, 26%, 17%),
 	"text": hsl(0, 0%, 100%),
 	"elements": hsl(209, 23%, 22%),
 	"element-boxshadow": 	hsl(205, 27%, 16%),
-	"lighter-text": hsl(0, 0%, 66%)
+
+	"lighter-text": hsl(0, 0%, 66%),
+	"scrollbar-thumb": hsl(209, 10%, 38%),
+	"scrollbar-track": hsl(209, 26%, 15%)
 );
 
 // light theme:
 .light {
+	* {
+		transition: $theme-transition;
+	}
 	body {
 		background-color: map-get($light-colors, "background");
-		transition: $theme-transition;
 	}
 
 	* {
 		color: map-get($light-colors, "text");
-		transition: $theme-transition;
 	}
 
 	svg {
 		fill: map-get($light-colors, "text");
-		transition: $svg-theme-transition;
 	}
 
 	.default-background {
 		background-color: map-get($light-colors, "elements");
 		box-shadow: 0.5rem 1rem 3rem map-get($light-colors, "element-boxshadow");
-		transition: $theme-transition;
 	}
 
 	.lighter-text {
 		color: map-get($light-colors, "lighter-text");
 	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: map-get($light-colors, "scrollbar-thumb" );
+	}
+
+	::-webkit-scrollbar-track {
+		background-color: map-get($light-colors, "scrollbar-track" );
+	}
 }
 
 // dark theme:
 .dark {
+	* {
+		transition: $theme-transition;
+	}
+
 	body {
 		background-color: map-get($dark-colors, "background");
-		transition: $theme-transition;
 	}
 
 	* {
 		color: map-get($dark-colors, "text");
-		transition: $theme-transition;
 	}
 
 	svg {
 		fill: map-get($dark-colors, "text");
-		transition: $svg-theme-transition;
 	}
 
 	.default-background {
 		background-color: map-get($dark-colors, "elements");
 		box-shadow: 0.5rem 1rem 3rem map-get($dark-colors, "element-boxshadow");
-		transition: $theme-transition;
 	}
 
 	.lighter-text {
 		color: map-get($dark-colors, "lighter-text");
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: map-get($dark-colors, "scrollbar-thumb" );
+	}
+
+	::-webkit-scrollbar-track {
+		background-color: map-get($dark-colors, "scrollbar-track" );
 	}
 }
