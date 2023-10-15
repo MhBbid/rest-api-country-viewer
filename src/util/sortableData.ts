@@ -33,26 +33,26 @@ class sortNumerically {
 
 export class sortableData {
 	data: any;
-	dataNames: string[];
-	dataNumbers: number[];
+	sortingNames: string[];
+	sortingNumbers: number[];
 
 	sortAlphabetically: sortAlphabetically;
 	sortNumerically: sortNumerically;
 
 	constructor(data: any, names: string[], numbers: number[]) {
 		this.data = data;
-		this.dataNames = names;
-		this.dataNumbers = numbers;
+		this.sortingNames = names;
+		this.sortingNumbers = numbers;
 		
 		this.sortAlphabetically = new sortAlphabetically(this.data);
 		this.sortNumerically = new sortNumerically(this.data);
 
 		this.data.forEach((entry: any, index: number) => {
-			entry.dataName = this.dataNames[index];
+			entry.sortingName = this.sortingNames[index];
 		});
 
 		this.data.forEach((entry: any, index: number) => {
-			entry.dataNumber = this.dataNumbers[index];
+			entry.sortingNumber = this.sortingNumbers[index];
 		});
 	}
 }

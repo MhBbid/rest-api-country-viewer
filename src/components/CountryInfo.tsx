@@ -5,7 +5,7 @@ export default function CountryInfo(country: CountryInfos) {
     <div className="flex flex-col gap-4 p-8">
       <h1 className="text-lg font-extrabold">
         {country.name}{" "}
-        <span className="lighter-text"> {`(${country.nativeName})`} </span>
+        <span className="text-lg font-extrabold lighter-text">{`(${country.nativeName})`}</span>
       </h1>
 
       <ul>

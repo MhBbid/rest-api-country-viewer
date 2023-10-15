@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
+import { Theme } from "../util/customTypes";
 
 const rootElement = document.querySelector(":root");
 
 export default function useTheme() {
-	const browserTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
-	const latestTheme = localStorage.getItem("LatestTheme");
+	const browserTheme: Theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+	const latestTheme: Theme = localStorage.getItem("LatestTheme") || browserTheme;
 
-	const [currentTheme, setCurrentTheme] = useState(latestTheme || browserTheme);
+	const [currentTheme, setCurrentTheme] = useState<Theme>(latestTheme);
 
 	function changeTheme() {
 		currentTheme == "light" ? setCurrentTheme("dark") : setCurrentTheme("light");

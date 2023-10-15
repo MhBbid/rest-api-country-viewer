@@ -5,7 +5,10 @@ export default function CountryCard(country: CountryInfos) {
   return (
     <div
       tabIndex={0}
-      className="flex flex-col default-background rounded-md overflow-hidden h-full cursor-pointer hover:scale-105 focus:scale-105"
+      className="default-background default-hover flex flex-col rounded-md overflow-hidden h-full cursor-pointer card-hover focus-visible:scale-105"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       <img
         loading="lazy"

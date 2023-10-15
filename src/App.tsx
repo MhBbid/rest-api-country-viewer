@@ -1,5 +1,5 @@
-import Home from "./pages/Home";
-import TopNav from "./pages/TopNav";
+import Home from "./layouts/Home";
+import TopNav from "./layouts/TopNav";
 
 export default function App() {
   return (

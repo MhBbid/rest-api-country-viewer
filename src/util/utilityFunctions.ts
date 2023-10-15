@@ -1,3 +1,3 @@
-export function standardiseString(input: string) {
-	return input.toLowerCase().replace(' ', '');
+export function standardiseString(string: string) {
+	return string.toLowerCase().replace(' ', '');
 }

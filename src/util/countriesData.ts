@@ -1,3 +1,4 @@
+import { CountryDetails } from "./customTypes";
 import { sortableData } from "./sortableData";
 
 // getting the data
@@ -27,15 +28,21 @@ countryDataParsed.forEach((country: any) => {
 	countryPopulations.push(country.population);
 });
 
-const countries = new sortableData(countryDataParsed, countryNames, countryPopulations);
+const countriesFetched = new sortableData(countryDataParsed, countryNames, countryPopulations);
 
 // couple of tweeks to the data
-countries.data.forEach((country: any) => {
-	country.nativeName = Object.values(country.name.nativeName)[0];
-	country.nativeName != undefined ? country.nativeName = country.nativeName.common : country.nativeName = country.name;
-
+countriesFetched.data.forEach((country: any) => {
 	country.capital == "" ? country.capital = "None" : null;
-	country.name = country.dataName;
+	country.subregion == "" ? country.subregion = "None" : null;
+	country.currencies == "" ? country.currencies = "None" : null;
+	country.languages == "" ? country.languages = "None" : null;
+	country.borders == "" ? country.borders = "None" : null;
+	
+	country.nativeName = Object.values(country.name.nativeName)[0];
+	country.nativeName != undefined ? country.nativeName = country.nativeName.common : country.nativeName = "No Native Name";
+
+	country.name = country.sortingName;
+	country.number = country.sortingNumber;
 });
 
-export { countries }
+export default countriesFetched;

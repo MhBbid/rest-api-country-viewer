@@ -5,13 +5,13 @@
 $theme-transition: all 250ms, background-color 750ms, color 750ms, box-shadow 750ms;
 
 $light-colors: (
-	"background": hsl(0, 0%, 95%),
+	"background": hsl(0, 0%, 90%),
 	"text": hsl(200, 15%, 8%),
-	"elements": hsl(0, 0%, 100%),
-	"element-boxshadow": hsl(0, 0%, 85%),
-
-	"lighter-text": hsl(0, 0%, 52%),
-	"scrollbar-thumb": hsl(0, 0%, 75%),
+	"elements": hsl(0, 0%, 90%),
+	"elements-hover": hsl(0, 0%, 100%),
+	"element-boxshadow": hsl(0, 0%, 65%),
+	"lighter-text": hsl(0, 0%, 42%),
+	"scrollbar-thumb": hsl(0, 0%, 65%),
 	"scrollbar-track": hsl(0, 0%, 100%)
 );
 
@@ -19,28 +19,28 @@ $dark-colors: (
 	"background": hsl(207, 26%, 17%),
 	"text": hsl(0, 0%, 100%),
 	"elements": hsl(209, 23%, 22%),
+	"elements-hover": hsl(209, 23%, 26%),
 	"element-boxshadow": 	hsl(205, 27%, 16%),
-
 	"lighter-text": hsl(0, 0%, 66%),
 	"scrollbar-thumb": hsl(209, 10%, 38%),
 	"scrollbar-track": hsl(209, 26%, 15%)
 );
 
+svg {
+	fill: currentColor;
+}
+
 // light theme:
 .light {
+	transition: $theme-transition;
+	
 	* {
 		transition: $theme-transition;
-	}
-	body {
-		background-color: map-get($light-colors, "background");
-	}
-
-	* {
 		color: map-get($light-colors, "text");
 	}
 
-	svg {
-		fill: map-get($light-colors, "text");
+	body {
+		background-color: map-get($light-colors, "background");
 	}
 
 	.default-background {
@@ -48,8 +48,17 @@ $dark-colors: (
 		box-shadow: 0.5rem 1rem 3rem map-get($light-colors, "element-boxshadow");
 	}
 
+	@media (hover: hover) {
+		.default-hover:hover, .default-hover:focus-visible, div.default-hover:focus-within {
+			background-color: map-get($light-colors, "elements-hover");
+		}
+	}
+
 	.lighter-text {
 		color: map-get($light-colors, "lighter-text");
+		& * {
+			color: map-get($light-colors, "lighter-text");
+		}
 	}
 
 	::-webkit-scrollbar-thumb {
@@ -65,18 +74,11 @@ $dark-colors: (
 .dark {
 	* {
 		transition: $theme-transition;
+		color: map-get($dark-colors, "text");
 	}
 
 	body {
 		background-color: map-get($dark-colors, "background");
-	}
-
-	* {
-		color: map-get($dark-colors, "text");
-	}
-
-	svg {
-		fill: map-get($dark-colors, "text");
 	}
 
 	.default-background {
@@ -84,8 +86,17 @@ $dark-colors: (
 		box-shadow: 0.5rem 1rem 3rem map-get($dark-colors, "element-boxshadow");
 	}
 
+	@media (hover: hover) {
+		.default-hover:hover, .default-hover:focus-visible, div.default-hover:focus-within {
+			background-color: map-get($dark-colors, "elements-hover");
+		}
+	}
+
 	.lighter-text {
 		color: map-get($dark-colors, "lighter-text");
+		& * {
+			color: map-get($dark-colors, "lighter-text");
+		}
 	}
 
 	::-webkit-scrollbar-thumb {

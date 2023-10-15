@@ -1,11 +1,16 @@
-export type Region = "Afrika" | "Europe" | "Americas" | "Asia" | "Oceania";
+import React from "react";
+
+export type Theme = "light" | "dark";
+
+export const Regions = ["Africa", "Americas", "Asia", "Europe", "Oceania", "Antarctic"];
+export const Sortings = ["Name A-Z", "Name Z-A", "Most Populated", "Least Populated"];
 
 export interface CountryInfos {
 	flags: any;
   name: string;
 	nativeName: string
   population: number;
-  region: Region;
+  region: string;
   capital: string;
 }
 
@@ -14,7 +19,7 @@ export interface CountryDetails {
 	name: string;
 	nativeName: string
 	population: number;
-	region: Region;
+	region: string;
 	subregion: string;
 	
 	capital: string;
@@ -29,5 +34,10 @@ export interface SearchBarProps {
 	onSearchChange: React.ChangeEventHandler;
 }
 
+export interface RegionPickerProps {
+	onRegionalFilterChange: Function;
+}
+
 export interface SortingPickerProps {
+	onSortingChange: Function;
 }
