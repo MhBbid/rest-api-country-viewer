@@ -31,7 +31,7 @@ class sortNumerically {
 	}
 }
 
-export class sortableData {
+export default class sortableData {
 	data: any;
 	sortingNames: string[];
 	sortingNumbers: number[];

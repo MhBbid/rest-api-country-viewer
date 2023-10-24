@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
+import DropdownIcon from "../assets/DropdownIcon";
 
 interface Props {
   selectItems: string[];
   defaultItem: string;
   onSelectedChange: Function;
-  svgPath?: string;
+  defaultSvgPath?: string;
+  svgPaths?: string[];
 }
 
 export default function Dropdown(props: Props) {
@@ -20,26 +22,38 @@ export default function Dropdown(props: Props) {
   }, [selectedItem]);
 
   return (
-    <div className="relative flex flex-col items-center w-full h-full">
+    <div className="relative flex items-center w-full h-full">
       <button
         ref={dropdownToggleRef}
         onClick={() => {
           setIsMenuOpen((prev: boolean) => !prev);
           dropdownToggleRef.current && dropdownToggleRef.current.focus();
         }}
-        className="default-background default-hover rounded-lg py-4 px-6 h-full w-full flex items-center gap-2"
+        className="default-background default-hover rounded-lg py-4 px-6 h-full w-full flex justify-between items-center"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="1em"
-          viewBox="0 0 512 512"
-        >
-          <path d={props.svgPath}></path>
-        </svg>
+        <div className="flex items-center gap-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="1.25em"
+            viewBox="0 0 640 512"
+          >
+            <path
+              d={
+                selectedItem >= 0
+                  ? props.svgPaths && props.svgPaths[selectedItem]
+                  : props.defaultSvgPath
+              }
+            ></path>
+          </svg>
 
-        {selectedItem >= 0
-          ? props.selectItems[selectedItem]
-          : props.defaultItem}
+          <label className="block whitespace-nowrap overflow-hidden text-ellipsis">
+            {selectedItem >= 0
+              ? props.selectItems[selectedItem]
+              : props.defaultItem}
+          </label>
+        </div>
+
+        <DropdownIcon isMenuOpen={isMenuOpen} />
       </button>
 
       {isMenuOpen && (
@@ -47,13 +61,24 @@ export default function Dropdown(props: Props) {
           {props.selectItems.map((item: string, index: number) => (
             <button
               key={index}
-              className="w-full text-left p-3 default-hover"
+              className="w-full text-left p-3 default-hover flex items-center gap-3"
               onClick={() => {
                 setSelectedItem(index);
                 setIsMenuOpen(false);
               }}
             >
-              {item}
+              <div className="min-h-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1.25em"
+                  viewBox="0 0 640 512"
+                >
+                  <path d={props.svgPaths && props.svgPaths[index]}></path>
+                </svg>
+              </div>
+              <label className="block whitespace-nowrap overflow-hidden text-ellipsis">
+                {item}
+              </label>
             </button>
           ))}
         </div>

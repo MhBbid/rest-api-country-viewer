@@ -1,10 +1,11 @@
-import countriesFetched from "../util/countriesData";
-import { CountryDetails, Regions } from "../util/customTypes";
-
 import { useState } from "react"
-import { standardiseString } from "../util/utilityFunctions";
+import sortableData from "../util/sortableData";
 
-export default function useCountries(searchQuery: string, regionalFilter: string, sorting: string) {
+import { CountryDetails } from '../util/customTypes';
+import { Regions, Sortings } from "../util/constants";
+import { standardiseString } from "../util/stringUtilities";
+
+export default function useCountriesState(countriesFetched: sortableData, searchQuery: string, regionalFilter: string, sorting: string) {
 	const [countries, setFiltredCountries] = useState(countriesFetched.data);
 	
 	function changeCountries() {
@@ -13,24 +14,25 @@ export default function useCountries(searchQuery: string, regionalFilter: string
 		setFiltredCountries(() => countriesFetched.data.filter((country: CountryDetails) => {
 			const name = standardiseString(country.name.toString());
 			const nativeName = standardiseString(country.nativeName.toString());
+			const region = country.region;
 
 			return (name.includes(searchQuery) || nativeName.includes(searchQuery)) &&
-			(!Regions.includes(regionalFilter) || country.region.includes(regionalFilter));
+			(!Regions.includes(regionalFilter) || region == regionalFilter);
 		}))
 	}
 
 	function sortCountriesFetched() {
 		switch(sorting) {
-			case "Name A-Z":
+			case Sortings[0]:
 				countriesFetched.sortAlphabetically.fromA();
 				break;
-			case "Name Z-A":
+			case Sortings[1]:
 				countriesFetched.sortAlphabetically.fromZ();
 				break;
-			case "Most Populated":
+			case Sortings[2]:
 				countriesFetched.sortNumerically.fromHighest();
 				break;
-			case "Least Populated":
+			case Sortings[3]:
 				countriesFetched.sortNumerically.fromLowest();
 				break;
 		}

@@ -1,9 +1,7 @@
 import React from "react";
 
 export type Theme = "light" | "dark";
-
-export const Regions = ["Africa", "Americas", "Asia", "Europe", "Oceania", "Antarctic"];
-export const Sortings = ["Name A-Z", "Name Z-A", "Most Populated", "Least Populated"];
+export type ScrollDirection = "down" | "up";
 
 export interface CountryInfos {
 	flags: any;
@@ -31,6 +29,7 @@ export interface CountryDetails {
 }
 
 export interface SearchBarProps {
+	searchQueryState: string;
 	onSearchChange: React.ChangeEventHandler;
 }
 

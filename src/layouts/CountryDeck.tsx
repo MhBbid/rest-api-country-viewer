@@ -1,25 +1,35 @@
+import React from "react";
+import { useRef } from "react";
+
 import { CountryInfos } from "../util/customTypes";
-import CountryCard from "../components/CountryCard";
+import { useGridColumnCount } from "../hooks/useGridColumnCount";
+
+const CountryCard = React.lazy(() => import("./../components/CountryCard"));
 
 interface Props {
   countries: CountryInfos[];
 }
 
 export default function CountryDeck(props: Props) {
+  const deckRef = useRef<HTMLDivElement | null>(null);
+  const deckColumnCount = deckRef != null ? useGridColumnCount(deckRef) : 0;
   const countries = props.countries;
 
   return (
     <div
+      ref={deckRef}
       className={`grid gap-8 py-8 ${
         countries.length != 0 ? "bento-grid" : "h-[60vh] place-items-center"
       }`}
     >
       {countries.length != 0 ? (
-        countries.map((country: CountryInfos) => (
+        countries.map((country: CountryInfos, index: number) => (
           <CountryCard
             key={country.name}
-            flags={country.flags}
+            index={index}
+            columnCount={deckColumnCount}
             name={country.name}
+            flags={country.flags}
             nativeName={country.nativeName}
             population={country.population}
             region={country.region}
@@ -44,7 +54,7 @@ export default function CountryDeck(props: Props) {
 
           <div className="flex flex-col lighter-text text-center">
             <p> Check for any spelling mistakes in your search </p>
-            <p> Or try changing some of your filters </p>
+            <p> or try removing your regional filter </p>
           </div>
         </div>
       )}
