@@ -26,10 +26,7 @@ export default function App() {
       {countriesData ? (
         <>
           <TopNav currentTheme={currentTheme} changeTheme={changeTheme} />
-          <Home
-            countriesData={countriesData}
-            MaxCardsPerPage={MaxCardsPerPage}
-          />
+          <Home countriesData={countriesData} cardCount={MaxCardsPerPage} />
         </>
       ) : (
         <Skeleton skeletonCardCount={MaxCardsPerPage} />

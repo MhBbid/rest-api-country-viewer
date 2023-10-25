@@ -12,7 +12,10 @@ interface Props extends CountryInfos {
 
 export default function CountryCard(props: Props) {
   const cardRef = useRef<HTMLDivElement | null>(null);
-  const isCardInView = useInView(cardRef, { margin: "0px 0px -50px 0px" });
+  const isCardInView = useInView(cardRef, {
+    once: true,
+    margin: "0px 0px -50px 0px",
+  });
 
   return (
     <motion.div

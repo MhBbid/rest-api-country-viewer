@@ -6,12 +6,10 @@
 	font-family: 'Nunito Sans', sans-serif;
 	box-sizing: border-box;
 
+	user-select: none;
+
 	padding: 0;
 	margin: 0;
-}
-
-button, img {
-	user-select: none;
 }
 
 /* ---------- Scrollbar ---------- */

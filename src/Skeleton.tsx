@@ -29,7 +29,7 @@ export default function Skeleton(props: Props) {
         <div className="h-[100px]"></div>
 
         {/* country deck skeleton */}
-        <div className="grid gap-8 py-8 bento-grid trans">
+        <div className="grid gap-8 py-8 bento-grid">
           {destructuredSkeletonCards.map((element: any, index: number) => (
             <div
               key={index}
