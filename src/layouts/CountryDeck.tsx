@@ -18,7 +18,7 @@ export default function CountryDeck(props: Props) {
   return (
     <div
       ref={deckRef}
-      className={`grid gap-8 py-8 ${
+      className={`grid gap-6 py-8 side-padding ${
         countries.length != 0 ? "bento-grid" : "h-[60vh] place-items-center"
       }`}
     >

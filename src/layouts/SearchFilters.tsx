@@ -17,7 +17,7 @@ interface Props extends SearchBarProps, SortingPickerProps, RegionPickerProps {}
 
 export default function SearchFilters(props: Props) {
   return (
-    <div className="grid xl:grid-cols-2 xl:grid-rows-1 xl:gap-52 grid-cols-1 grid-rows-2 gap-3">
+    <div className="grid lg:grid-cols-2 lg:grid-rows-1 lg:gap-16 grid-cols-1 grid-rows-2 gap-3 side-padding">
       <SearchBar
         searchQueryState={props.searchQueryState}
         onSearchChange={props.onSearchChange}

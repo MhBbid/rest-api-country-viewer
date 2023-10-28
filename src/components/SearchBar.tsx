@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRef } from "react";
 import SearchIcon from "../assets/SearchIcon";
 import { SearchBarProps } from "../util/customTypes";
 
 export default function SearchBar(props: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {}, []);
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     // dont use [a-z A-Z], there are more languages than just english you know (also dont forget space)

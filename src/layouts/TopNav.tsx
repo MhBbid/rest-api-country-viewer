@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+
 import ThemeIcon from "../assets/ThemeIcon.tsx";
 import { Theme } from "../util/customTypes.ts";
 
@@ -7,8 +10,26 @@ interface Props {
 }
 
 export default function TopNav(props: Props) {
+  const [visible, setVisible] = useState(true);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latestScroll) => {
+    const previousScroll = scrollY.getPrevious();
+    latestScroll > previousScroll && latestScroll > 50
+      ? setVisible(false)
+      : setVisible(true);
+  });
+
   return (
-    <nav className="default-background h-20 flex justify-between items-center nav-side-padding sticky z-50 top-0">
+    <motion.nav
+      className="default-background h-20 flex justify-between items-center nav-side-padding sticky z-50 top-0"
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" },
+      }}
+      animate={visible ? "visible" : "hidden"}
+      transition={{ duration: 0.1 }}
+    >
       <h1 className="text-2xl font-extrabold p-3"> Where in the world? </h1>
 
       <button
@@ -18,6 +39,6 @@ export default function TopNav(props: Props) {
         <ThemeIcon currentTheme={props.currentTheme} />
         {props.currentTheme == "light" ? "dark" : "light"} mode
       </button>
-    </nav>
+    </motion.nav>
   );
 }

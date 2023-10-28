@@ -7,23 +7,29 @@ $theme-transition: all 250ms, background-color 750ms, color 750ms, box-shadow 75
 $light-colors: (
 	"background": hsl(0, 0%, 90%),
 	"text": hsl(200, 15%, 8%),
-	"elements": hsl(0, 0%, 95%),
-	"elements-hover": hsl(0, 0%, 100%),
-	"element-boxshadow": hsl(0, 0%, 65%),
 	"lighter-text": hsl(0, 0%, 42%),
 	"scrollbar-thumb": hsl(0, 0%, 100%),
-	"darker-elements": hsl(0, 0%, 85%)
+
+	"elements": hsl(0, 0%, 95%),
+	"elements-hover": hsl(0, 0%, 100%),
+	"element-boxshadow": hsl(0, 0%, 80%),
+	"brighter-elements": hsl(0, 0%, 65%), //yes i know this is darker shut up im too lazy for logical names
+	"darker-elements": hsl(0, 0%, 85%),
+	"darkest-elements": hsl(0, 0%, 65%)
 );
 
 $dark-colors: (
 	"background": hsl(207, 26%, 17%),
 	"text": hsl(0, 0%, 100%),
-	"elements": hsl(209, 23%, 22%),
-	"elements-hover": hsl(209, 23%, 26%),
-	"element-boxshadow": 	hsl(205, 27%, 16%),
 	"lighter-text": hsl(0, 0%, 66%),
 	"scrollbar-thumb": hsl(209, 10%, 38%),
-	"darker-elements": hsl(209, 26%, 15%)
+
+	"elements": hsl(209, 23%, 22%),
+	"elements-hover": hsl(209, 23%, 26%),
+	"element-boxshadow": 	hsl(207, 26%, 15%),
+	"brighter-elements": hsl(209, 15%, 55%),
+	"darker-elements": hsl(209, 26%, 15%),
+	"darkest-elements": hsl(209, 26%, 25%)
 );
 
 svg {
@@ -44,11 +50,25 @@ svg {
 
 	.default-background {
 		background-color: map-get($theme-colors, "elements");
-		box-shadow: 0.5rem 1rem 3rem map-get($theme-colors, "element-boxshadow");
+		box-shadow: 0.5rem 0.5rem 0.75rem map-get($theme-colors, "element-boxshadow");
+
 		&:disabled {
 			background-color: map-get($theme-colors, "darker-elements");
-			color: map-get($theme-colors, "lighter-text")
+			color: map-get($theme-colors, "lighter-text");
+			& svg {
+				fill: map-get($theme-colors, "darkest-elements");
+			}
 		}
+	}
+
+	.default-fill {
+		& svg {
+			fill: map-get($theme-colors, "brighter-elements");
+		}
+		
+		&:disabled svg{
+			fill: map-get($theme-colors, "elements");
+		} 
 	}
 
 	@media (hover: hover) {

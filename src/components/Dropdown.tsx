@@ -13,7 +13,8 @@ export default function Dropdown(props: Props) {
   const [selectedItem, setSelectedItem] = useState(-1);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const dropdownToggleRef = useRef<any>();
+  const dropdownToggleRef = useRef<HTMLButtonElement | null>(null);
+  const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     selectedItem >= 0
@@ -29,60 +30,67 @@ export default function Dropdown(props: Props) {
           setIsMenuOpen((prev: boolean) => !prev);
           dropdownToggleRef.current && dropdownToggleRef.current.focus();
         }}
-        className="default-background default-hover rounded-lg py-4 px-6 h-full w-full flex justify-between items-center"
+        className="default-background default-hover rounded-lg py-4 px-6 h-full w-full flex items-center"
       >
-        <div className="flex items-center gap-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="1.25em"
-            viewBox="0 0 640 512"
-          >
-            <path
-              d={
-                selectedItem >= 0
-                  ? props.svgPaths && props.svgPaths[selectedItem]
-                  : props.defaultSvgPath
-              }
-            ></path>
-          </svg>
+        <div className="flex justify-between items-center w-full">
+          <div className="flex gap-3">
+            {/* it doesnt look like i can do the whole text ellipsis thing that i did on the dropdown menu itself if there is ever
+            an element to the right so might aswell do the next best thing and hide this icon whenever it could cause any trouble*/}
+            <svg
+              className="hidden sm:block"
+              xmlns="http://www.w3.org/2000/svg"
+              height="1.25em"
+              viewBox="0 0 640 512"
+            >
+              <path
+                d={
+                  selectedItem >= 0
+                    ? props.svgPaths && props.svgPaths[selectedItem]
+                    : props.defaultSvgPath
+                }
+              ></path>
+            </svg>
 
-          <label className="block whitespace-nowrap overflow-hidden text-ellipsis">
-            {selectedItem >= 0
-              ? props.selectItems[selectedItem]
-              : props.defaultItem}
-          </label>
+            <label className="whitespace-nowrap">
+              {selectedItem >= 0
+                ? props.selectItems[selectedItem]
+                : props.defaultItem}
+            </label>
+          </div>
+          <DropdownIcon isMenuOpen={isMenuOpen} />
         </div>
-
-        <DropdownIcon isMenuOpen={isMenuOpen} />
       </button>
 
-      {isMenuOpen && (
-        <div className="default-background rounded-lg absolute z-40 flex flex-col gap-1 py-3 px-4 w-full top-16">
-          {props.selectItems.map((item: string, index: number) => (
-            <button
-              key={index}
-              className="w-full text-left p-3 default-hover flex items-center gap-3"
-              onClick={() => {
-                setSelectedItem(index);
-                setIsMenuOpen(false);
-              }}
-            >
-              <div className="min-h-full">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="1.25em"
-                  viewBox="0 0 640 512"
-                >
-                  <path d={props.svgPaths && props.svgPaths[index]}></path>
-                </svg>
-              </div>
-              <label className="block whitespace-nowrap overflow-hidden text-ellipsis">
-                {item}
-              </label>
-            </button>
-          ))}
-        </div>
-      )}
+      <div
+        ref={dropdownMenuRef}
+        className={`default-background rounded-lg absolute z-40 flex flex-col gap-1 py-3 px-4 w-full top-16 ${
+          isMenuOpen ? "dropdown-open" : " dropdown-closed"
+        }`}
+      >
+        {props.selectItems.map((item: string, index: number) => (
+          <button
+            key={index}
+            className="w-full text-left p-3 default-hover flex items-center gap-3"
+            onClick={() => {
+              setSelectedItem(index);
+              setIsMenuOpen(false);
+            }}
+          >
+            <div className="min-h-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="1.25em"
+                viewBox="0 0 640 512"
+              >
+                <path d={props.svgPaths && props.svgPaths[index]}></path>
+              </svg>
+            </div>
+            <label className="block whitespace-nowrap overflow-hidden text-ellipsis">
+              {item}
+            </label>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

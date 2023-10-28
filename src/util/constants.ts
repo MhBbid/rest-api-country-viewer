@@ -1,3 +1,5 @@
+export const MaxCardsPerPage = 12;
+
 export const desiredDataFields = [
 	"flags",
 	"name",

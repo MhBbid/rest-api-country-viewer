@@ -9,5 +9,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- i dont like getting flashbanged while a web app loads thank you very much -->
+    <!-- color scheme so we dont alienate light mode users -->
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+    </style>
   </body>
 </html>
