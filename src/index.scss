@@ -73,6 +73,10 @@ input[type="search"]::-webkit-search-cancel-button {
 	.card-hover:hover {
 		scale: 1.05;
 	}
+
+	.card-hover:focus-visible {
+		scale: 1.05;
+	}
 }
 // tailwind down here so it doesn't get overwriten by the above scss stuff
 @tailwind base;

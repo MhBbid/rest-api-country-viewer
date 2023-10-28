@@ -15,7 +15,7 @@ interface Props extends CountryInfos {
 }
 
 export default function CountryCard(props: Props) {
-  const cardRef = useRef<HTMLDivElement | null>(null);
+  const cardRef = useRef<HTMLButtonElement | null>(null);
   const [selectedCountry, setSelectedCountry] = useAtom(selectedCountryAtom);
 
   const isCardInView = useInView(cardRef, {
@@ -24,10 +24,10 @@ export default function CountryCard(props: Props) {
   });
 
   return (
-    <motion.div
+    <motion.button
       ref={cardRef}
       tabIndex={0}
-      className="default-background default-hover flex flex-col rounded-md overflow-hidden h-full cursor-pointer card-hover focus-visible:scale-105"
+      className="default-background default-hover flex flex-col rounded-md overflow-hidden h-full card-hover"
       onClick={() => setSelectedCountry(standardiseString(props.name))}
       variants={{
         inView: { opacity: 1, translateY: 0 },
@@ -41,7 +41,7 @@ export default function CountryCard(props: Props) {
         ease: "easeOut",
       }}
     >
-      <div className="darker-background h-[45%]">
+      <div className="darker-background h-[45%] w-full">
         <img
           loading="lazy"
           src={props.flags.png}
@@ -57,6 +57,6 @@ export default function CountryCard(props: Props) {
         region={props.region}
         capital={props.capital}
       />
-    </motion.div>
+    </motion.button>
   );
 }
