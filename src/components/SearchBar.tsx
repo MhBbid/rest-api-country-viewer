@@ -12,7 +12,7 @@ export default function SearchBar(props: SearchBarProps) {
   const isSearchBarInView = useInView(searchBarRef);
 
   useEffect(() => {
-    searchBarRef.current && !isSearchBarInView && searchBarRef.current.blur();
+    !isSearchBarInView && inputRef.current && inputRef.current.blur();
   }, [isSearchBarInView]);
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {

@@ -69,7 +69,7 @@ export default function Dropdown(props: Props) {
           visible: { opacity: 1, translateY: 0, display: "flex" },
           hidden: {
             opacity: 0,
-            translateY: -50,
+            translateY: -35,
             transitionEnd: {
               display: "none",
             },
@@ -77,7 +77,7 @@ export default function Dropdown(props: Props) {
         }}
         initial="hidden"
         animate={isMenuOpen ? "visible" : "hidden"}
-        transition={{ duration: 0.25, ease: "easeOut" }}
+        transition={{ duration: 0.15, ease: "linear" }}
       >
         {props.selectItems.map((item: string, index: number) => (
           <button
