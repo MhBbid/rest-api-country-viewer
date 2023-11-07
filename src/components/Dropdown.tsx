@@ -33,31 +33,26 @@ export default function Dropdown(props: Props) {
         }}
         className="default-background default-hover rounded-lg py-4 px-6 h-full w-full flex items-center"
       >
-        <div className="flex justify-between items-center w-full">
-          <div className="flex gap-3">
-            {/* it doesnt look like i can do the whole text ellipsis thing that i did on the dropdown menu itself if there is ever
-            an element to the right so might aswell do the next best thing and hide this icon whenever it could cause any trouble*/}
-            <svg
-              className="hidden sm:block"
-              xmlns="http://www.w3.org/2000/svg"
-              height="1.25em"
-              viewBox="0 0 640 512"
-            >
-              <path
-                d={
-                  selectedItem >= 0
-                    ? props.svgPaths && props.svgPaths[selectedItem]
-                    : props.defaultSvgPath
-                }
-              ></path>
-            </svg>
-
-            <label className="whitespace-nowrap">
-              {selectedItem >= 0
-                ? props.selectItems[selectedItem]
-                : props.defaultItem}
-            </label>
-          </div>
+        <div className="flex gap-3 items-center w-full">
+          <svg
+            className="flex-shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            height="1.25em"
+            viewBox="0 0 640 512"
+          >
+            <path
+              d={
+                selectedItem >= 0
+                  ? props.svgPaths && props.svgPaths[selectedItem]
+                  : props.defaultSvgPath
+              }
+            ></path>
+          </svg>
+          <span className="mr-auto truncate">
+            {selectedItem >= 0
+              ? props.selectItems[selectedItem]
+              : props.defaultItem}
+          </span>
           <DropdownIcon isMenuOpen={isMenuOpen} />
         </div>
       </button>
@@ -98,9 +93,9 @@ export default function Dropdown(props: Props) {
                 <path d={props.svgPaths && props.svgPaths[index]}></path>
               </svg>
             </div>
-            <label className="block whitespace-nowrap overflow-hidden text-ellipsis">
+            <span className="block whitespace-nowrap overflow-hidden text-ellipsis">
               {item}
-            </label>
+            </span>
           </button>
         ))}
       </motion.div>

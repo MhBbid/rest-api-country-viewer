@@ -30,6 +30,7 @@ export default function SearchBar(props: SearchBarProps) {
     >
       <SearchIcon />
       <input
+        id="search-input"
         ref={inputRef}
         onChange={handleSearchChange}
         type="search"

@@ -74,6 +74,7 @@ export default function PageSelector(props: Props) {
 
       <div>
         <input
+          id="page-input"
           ref={pageInputRef}
           className="bg-transparent outline-none text-right p-1 w-[3ch] underline-offset-4 focus:underline"
           maxLength={2}
@@ -89,7 +90,9 @@ export default function PageSelector(props: Props) {
           }
           onKeyDown={(e) => e.key === "Enter" && pageInputRef.current?.blur()}
         />
-        <label>{`/ ${Math.ceil(props.countryCount / props.cardCount)}`}</label>
+        <label htmlFor="page-input">{`/ ${Math.ceil(
+          props.countryCount / props.cardCount
+        )}`}</label>
       </div>
 
       <button
