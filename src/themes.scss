@@ -2,32 +2,34 @@
 	color-scheme: light dark;
 }
 
-$theme-transition: all 250ms, background-color 750ms, color 750ms, box-shadow 750ms;
+$theme-transition: all 250ms, background-color 500ms, color 500ms, box-shadow 500ms;
 
 $light-colors: (
-	"background": hsl(0, 0%, 90%),
+	"background": hsl(0, 0%, 85%),
 	"text": hsl(200, 15%, 8%),
 	"lighter-text": hsl(0, 0%, 42%),
 	"scrollbar-thumb": hsl(0, 0%, 100%),
+	"scrollbar-track": hsl(0, 0%, 65%),
 
 	"elements": hsl(0, 0%, 95%),
 	"elements-hover": hsl(0, 0%, 100%),
-	"element-boxshadow": hsl(0, 0%, 80%),
-	"brighter-elements": hsl(0, 0%, 65%), //yes i know this is darker shut up im too lazy for logical names
+	"element-boxshadow": hsla(0, 0%, 0%, 20%),
+	"lighter-elements": hsl(0, 0%, 65%),
 	"darker-elements": hsl(0, 0%, 85%),
 	"darkest-elements": hsl(0, 0%, 65%)
-);
-
+	);
+	
 $dark-colors: (
 	"background": hsl(207, 26%, 17%),
 	"text": hsl(0, 0%, 100%),
 	"lighter-text": hsl(0, 0%, 66%),
 	"scrollbar-thumb": hsl(209, 10%, 38%),
-
+	"scrollbar-track": hsl(209, 26%, 15%),
+		
 	"elements": hsl(209, 23%, 22%),
 	"elements-hover": hsl(209, 23%, 26%),
-	"element-boxshadow": 	hsl(207, 26%, 15%),
-	"brighter-elements": hsl(209, 15%, 55%),
+	"element-boxshadow": hsla(0, 0%, 0%, 20%),
+	"lighter-elements": hsl(209, 15%, 55%),
 	"darker-elements": hsl(209, 26%, 15%),
 	"darkest-elements": hsl(209, 26%, 25%)
 );
@@ -63,7 +65,7 @@ svg {
 
 	.default-fill {
 		& svg {
-			fill: map-get($theme-colors, "brighter-elements");
+			fill: map-get($theme-colors, "lighter-elements");
 		}
 		
 		&:disabled svg{
@@ -87,7 +89,7 @@ svg {
 	}
 
 	.darker-background {
-		background-color: map-get($theme-colors, "darker-elements")
+		background-color: map-get($theme-colors, "darker-elements");
 	}
 
 	::-webkit-scrollbar-thumb {
@@ -95,7 +97,11 @@ svg {
 	}
 
 	::-webkit-scrollbar-track {
-		background-color: map-get($theme-colors, "darker-elements");
+		background-color: map-get($theme-colors, "scrollbar-track");
+	}
+
+	.error-background {
+		background-color: map-get($theme-colors, "error")
 	}
 }
 

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useAtom } from "jotai";
 import { useInView } from "framer-motion";
 
-import { standardiseString } from "../util/stringUtilities";
+import { standardiseString } from "../util/misc";
 import { selectedCountryAtom } from "../App";
 import { CountryInfos } from "../util/customTypes";
 
@@ -37,7 +37,7 @@ export default function CountryCard(props: Props) {
       animate={isCardInView ? "inView" : "outOfView"}
       transition={{
         duration: 0.15,
-        delay: (props.index % props.columnCount) * 0.1,
+        delay: 0.05 + (props.index % props.columnCount) * 0.1,
         ease: "easeOut",
       }}
     >

@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 import useCountriesData from "./hooks/useCountriesData";
 import sortableData from "./util/sortableData";
 import useTheme from "./hooks/useTheme";
-import { MaxCardsPerPage } from "./util/constants";
+import { MaxCardsPerPage } from "./util/misc";
 
 const Skeleton = React.lazy(() => import("./Skeleton"));
 const TopNav = React.lazy(() => import("./layouts/TopNav"));

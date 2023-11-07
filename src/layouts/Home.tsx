@@ -1,15 +1,18 @@
 import React from "react";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { atom, useAtom } from "jotai";
 
 import useCountriesState from "../hooks/useCountriesState";
 import sortableData from "../util/sortableData";
-import { standardiseString } from "../util/stringUtilities";
-import PageSelector from "../components/PageSelector";
+import { standardiseString } from "../util/misc";
 
 const SearchFilters = React.lazy(() => import("./SearchFilters"));
 const CountryDeck = React.lazy(() => import("./CountryDeck"));
+const NoCountriesFound = React.lazy(() => import("./NoCountriesFound"));
+
+const ScrollToTop = React.lazy(() => import("../components/ScrollToTop"));
+const PageSelector = React.lazy(() => import("../components/PageSelector"));
 
 interface Props {
   countriesData: sortableData;
@@ -28,6 +31,24 @@ export default function Home(props: Props) {
   const [sorting, setSorting] = useAtom(sortingAtom);
 
   const { countries, changeCountries } = useCountriesState(props.countriesData);
+  const [countriesSlice, setCountriesSlice] = useState(
+    countries.slice(
+      currentPage * props.cardCount,
+      currentPage * props.cardCount + props.cardCount
+    )
+  );
+
+  const [didMount, setDidMount] = useState(false);
+
+  useEffect(() => {
+    setDidMount(true);
+  }, []);
+
+  // we don't want to scroll to the top when the component first renders, only when currentPage explicitly changes
+  // that's what didMount is for
+  useEffect(() => {
+    didMount && currentPage != null && scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
 
   useEffect(() => {
     changeCountries();
@@ -35,8 +56,13 @@ export default function Home(props: Props) {
   }, [searchQuery, region, sorting]);
 
   useEffect(() => {
-    scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentPage]);
+    setCountriesSlice(
+      countries.slice(
+        currentPage * props.cardCount,
+        currentPage * props.cardCount + props.cardCount
+      )
+    );
+  }, [countries, currentPage]);
 
   return (
     <div className="grid homepage-grid py-8">
@@ -49,12 +75,11 @@ export default function Home(props: Props) {
         onRegionalFilterChange={(newRegion: string) => setRegion(newRegion)}
       />
 
-      <CountryDeck
-        countries={countries.slice(
-          currentPage * props.cardCount,
-          currentPage * props.cardCount + props.cardCount
-        )}
-      />
+      {countriesSlice.length != 0 ? (
+        <CountryDeck countries={countriesSlice} />
+      ) : (
+        <NoCountriesFound />
+      )}
 
       {countries.length != 0 && (
         <PageSelector
@@ -64,6 +89,8 @@ export default function Home(props: Props) {
           setCurrentPage={setCurrentPage}
         />
       )}
+
+      <ScrollToTop />
     </div>
   );
 }

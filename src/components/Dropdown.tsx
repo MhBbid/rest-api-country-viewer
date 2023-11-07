@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import DropdownIcon from "../assets/DropdownIcon";
 
 interface Props {
@@ -61,11 +62,22 @@ export default function Dropdown(props: Props) {
         </div>
       </button>
 
-      <div
+      <motion.div
         ref={dropdownMenuRef}
-        className={`default-background rounded-lg absolute z-40 flex flex-col gap-1 py-3 px-4 w-full top-16 ${
-          isMenuOpen ? "dropdown-open" : " dropdown-closed"
-        }`}
+        className={`default-background rounded-lg absolute z-40 flex flex-col gap-1 py-3 px-4 w-full top-16`}
+        variants={{
+          visible: { opacity: 1, translateY: 0, display: "flex" },
+          hidden: {
+            opacity: 0,
+            translateY: -50,
+            transitionEnd: {
+              display: "none",
+            },
+          },
+        }}
+        initial="hidden"
+        animate={isMenuOpen ? "visible" : "hidden"}
+        transition={{ duration: 0.25, ease: "easeOut" }}
       >
         {props.selectItems.map((item: string, index: number) => (
           <button
@@ -75,6 +87,7 @@ export default function Dropdown(props: Props) {
               setSelectedItem(index);
               setIsMenuOpen(false);
             }}
+            disabled={!isMenuOpen}
           >
             <div className="min-h-full">
               <svg
@@ -90,7 +103,7 @@ export default function Dropdown(props: Props) {
             </label>
           </button>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -1,12 +1,19 @@
-import React, { useEffect } from "react";
-import { useRef } from "react";
-import SearchIcon from "../assets/SearchIcon";
+import React from "react";
+import { useEffect, useRef } from "react";
+
 import { SearchBarProps } from "../util/customTypes";
+import { useInView } from "framer-motion";
+
+const SearchIcon = React.lazy(() => import("../assets/SearchIcon"));
 
 export default function SearchBar(props: SearchBarProps) {
+  const searchBarRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const isSearchBarInView = useInView(searchBarRef);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    searchBarRef.current && !isSearchBarInView && searchBarRef.current.blur();
+  }, [isSearchBarInView]);
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     // dont use [a-z A-Z], there are more languages than just english you know (also dont forget space)
@@ -17,6 +24,7 @@ export default function SearchBar(props: SearchBarProps) {
 
   return (
     <div
+      ref={searchBarRef}
       onClick={() => inputRef.current && inputRef.current.focus()}
       className="default-background default-hover flex items-center px-8 py-4 gap-6 rounded-lg outline-2 cursor-text focus-within:outline"
     >

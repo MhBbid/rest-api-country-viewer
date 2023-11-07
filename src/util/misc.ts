@@ -1,3 +1,7 @@
+export function standardiseString(string: string) {
+	return string.toLowerCase().replaceAll(" ", "_");
+}
+
 export const MaxCardsPerPage = 12;
 
 export const desiredDataFields = [

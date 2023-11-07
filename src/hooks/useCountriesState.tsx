@@ -5,8 +5,8 @@ import sortableData from "../util/sortableData";
 import { searchQueryAtom, regionAtom, sortingAtom } from "../layouts/Home";
 
 import { CountryDetails } from "../util/customTypes";
-import { Regions, Sortings } from "../util/constants";
-import { standardiseString } from "../util/stringUtilities";
+import { Regions, Sortings } from "../util/misc";
+import { standardiseString } from "../util/misc";
 
 export default function useCountriesState(countriesFetched: sortableData) {
   const [countries, setFiltredCountries] = useState(countriesFetched.data);

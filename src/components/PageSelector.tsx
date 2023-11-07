@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from "react";
+
 interface Props {
   countryCount: number;
   cardCount: number;
@@ -7,15 +9,40 @@ interface Props {
 }
 
 export default function PageSelector(props: Props) {
-  function changeCurrentPageHandler(newCurrentPage: number) {
-    props.setCurrentPage(newCurrentPage);
+  const pageInputRef = useRef<HTMLInputElement | null>(null);
+  const [pageCount, setPageCount] = useState<number>(
+    props.countryCount / props.cardCount
+  );
+
+  function changeCurrentPageHandler(newCurrentPage: number | false) {
+    if (
+      typeof newCurrentPage == "number" &&
+      newCurrentPage > 0 &&
+      newCurrentPage <= pageCount
+    ) {
+      props.setCurrentPage(newCurrentPage);
+    }
+
+    pageInputRef.current
+      ? (pageInputRef.current.value = (props.currentPage + 1).toString())
+      : null;
   }
+
+  useEffect(() => {
+    setPageCount(props.countryCount / props.cardCount);
+  }, [props.countryCount]);
+
+  useEffect(() => {
+    if (pageInputRef.current && !pageInputRef.current.hasAttribute("focus")) {
+      pageInputRef.current.value = (props.currentPage + 1).toString();
+    }
+  }, [props.currentPage, pageInputRef.current?.hasAttribute("focus")]);
 
   return (
     <div className="flex items-center justify-self-center gap-4 p-4">
       <button
         className="default-fill p-2 hidden sm:block"
-        title="Go to First page"
+        title={props.currentPage != 0 ? "Go to First page" : ""}
         onClick={() => changeCurrentPageHandler(0)}
         disabled={props.currentPage == 0}
       >
@@ -45,14 +72,30 @@ export default function PageSelector(props: Props) {
         Previous page
       </button>
 
-      <h1>{`${props.currentPage + 1} / ${Math.ceil(
-        props.countryCount / props.cardCount
-      )}`}</h1>
+      <div>
+        <input
+          ref={pageInputRef}
+          className="bg-transparent outline-none text-right p-1 w-[3ch] underline-offset-4 focus:underline"
+          maxLength={2}
+          onBlur={() => {
+            pageInputRef.current &&
+              changeCurrentPageHandler(
+                pageInputRef.current.value != "" &&
+                  Number(pageInputRef.current.value) - 1
+              );
+          }}
+          onChange={(e) =>
+            (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
+          }
+          onKeyDown={(e) => e.key === "Enter" && pageInputRef.current?.blur()}
+        />
+        <label>{`/ ${Math.ceil(props.countryCount / props.cardCount)}`}</label>
+      </div>
 
       <button
         className="default-background default-hover rounded-md p-4 flex justify-center items-center gap-2"
         onClick={() => changeCurrentPageHandler(props.currentPage + 1)}
-        disabled={props.currentPage > props.countryCount / props.cardCount - 1}
+        disabled={props.currentPage > pageCount - 1}
       >
         Next page
         {/* Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc */}
@@ -66,14 +109,14 @@ export default function PageSelector(props: Props) {
       </button>
 
       <button
-        title="Go to Last page"
+        title={!(props.currentPage > pageCount - 1) ? "Go to Last page" : ""}
         className="default-fill p-2 hidden sm:block"
         onClick={() =>
           changeCurrentPageHandler(
             Math.ceil(props.countryCount / props.cardCount - 1)
           )
         }
-        disabled={props.currentPage > props.countryCount / props.cardCount - 1}
+        disabled={props.currentPage > pageCount - 1}
       >
         {/* Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc */}
         <svg

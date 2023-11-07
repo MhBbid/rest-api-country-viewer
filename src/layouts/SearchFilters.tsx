@@ -1,5 +1,5 @@
 import { SearchBarProps } from "../util/customTypes";
-import { Regions, Sortings } from "../util/constants";
+import { Regions, Sortings } from "../util/misc";
 
 import { SortingPickerProps } from "../util/customTypes";
 import { RegionPickerProps } from "../util/customTypes";
