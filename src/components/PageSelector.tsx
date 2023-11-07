@@ -17,7 +17,7 @@ export default function PageSelector(props: Props) {
   function changeCurrentPageHandler(newCurrentPage: number | false) {
     if (
       typeof newCurrentPage == "number" &&
-      newCurrentPage > 0 &&
+      newCurrentPage >= 0 &&
       newCurrentPage <= pageCount
     ) {
       props.setCurrentPage(newCurrentPage);
