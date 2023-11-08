@@ -8,7 +8,8 @@ export default async function useCountriesData() {
   );
   const countryDataParsed = await countryDataJSON.json();
 
-  // implementing sortabillity
+  // implementing the stupid sortability i made that could have
+  // litteraly just been about 6 lines of code in the jsx
   const countryNames: string[] = [];
   const countryPopulations: number[] = [];
 

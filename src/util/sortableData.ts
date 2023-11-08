@@ -1,6 +1,10 @@
 // i wanted this to not be project specific, so i could just copy and paste this file in anywhere,
 // but i had no idea what i was doing when it came to this oop stuff, sorry in advance:
 
+// future note: this code has no point, each button could just call a function to sort the countries
+// like in the functions below. The code below is absolutely fucking retarded and bloated.
+// too bad!
+
 class sortAlphabetically {
 	data: any[];
 	constructor(data: any[]) {

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
+import { selectedCountryAtom } from "../App.tsx";
+import { useAtom } from "jotai";
+
 import ThemeIcon from "../assets/ThemeIcon.tsx";
 import { Theme } from "../util/customTypes.ts";
 
@@ -10,24 +13,29 @@ interface Props {
 }
 
 export default function TopNav(props: Props) {
+  const [selectedCountry, setSelectedCountry] = useAtom(selectedCountryAtom);
   const [visible, setVisible] = useState(true);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latestScroll) => {
-    const previousScroll = scrollY.getPrevious();
-    latestScroll > previousScroll && latestScroll > 50
-      ? setVisible(false)
-      : setVisible(true);
+    if (selectedCountry == "") {
+      const previousScroll = scrollY.getPrevious();
+      latestScroll > previousScroll && latestScroll > 50
+        ? setVisible(false)
+        : setVisible(true);
+    }
   });
 
   return (
     <motion.nav
-      className="default-background h-20 flex justify-between items-center nav-side-padding sticky z-50 top-0"
+      className="default-background h-20 w-full nav-side-padding fixed z-50 top-0 flex justify-between items-center"
       variants={{
         visible: { y: 0 },
         hidden: { y: "-100%" },
       }}
-      animate={visible ? "visible" : "hidden"}
+      animate={
+        selectedCountry != "" ? "visible" : visible ? "visible" : "hidden"
+      }
       transition={{ duration: 0.1 }}
     >
       <h1 className="text-2xl font-extrabold p-3"> Where in the world? </h1>

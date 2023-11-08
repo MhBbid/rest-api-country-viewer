@@ -5,7 +5,7 @@
 $theme-transition: all 250ms, background-color 500ms, color 500ms, box-shadow 500ms;
 
 $light-colors: (
-	"background": hsl(0, 0%, 85%),
+	"background": hsl(0, 0%, 90%),
 	"text": hsl(200, 15%, 8%),
 	"lighter-text": hsl(0, 0%, 42%),
 	"scrollbar-thumb": hsl(0, 0%, 100%),
@@ -15,7 +15,6 @@ $light-colors: (
 	"elements-hover": hsl(0, 0%, 100%),
 	"element-boxshadow": hsla(0, 0%, 0%, 20%),
 	"lighter-elements": hsl(0, 0%, 65%),
-	"darker-elements": hsl(0, 0%, 85%),
 	"darkest-elements": hsl(0, 0%, 65%)
 	);
 	
@@ -30,7 +29,6 @@ $dark-colors: (
 	"elements-hover": hsl(209, 23%, 26%),
 	"element-boxshadow": hsla(0, 0%, 0%, 20%),
 	"lighter-elements": hsl(209, 15%, 55%),
-	"darker-elements": hsl(209, 26%, 15%),
 	"darkest-elements": hsl(209, 26%, 25%)
 );
 
@@ -55,7 +53,7 @@ svg {
 		box-shadow: 0.5rem 0.5rem 0.75rem map-get($theme-colors, "element-boxshadow");
 
 		&:disabled {
-			background-color: map-get($theme-colors, "darker-elements");
+			background-color: map-get($theme-colors, "background");
 			color: map-get($theme-colors, "lighter-text");
 			& svg {
 				fill: map-get($theme-colors, "darkest-elements");
@@ -89,7 +87,7 @@ svg {
 	}
 
 	.darker-background {
-		background-color: map-get($theme-colors, "darker-elements");
+		background-color: map-get($theme-colors, "background");
 	}
 
 	::-webkit-scrollbar-thumb {

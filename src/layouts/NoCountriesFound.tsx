@@ -17,7 +17,7 @@ export default function NoCountriesFound() {
         </div>
         <div className="flex flex-col lighter-text text-center">
           <p> Check for any spelling mistakes in your search </p>
-          <p> or try removing your regional filter </p>
+          <p> or try changing your regional filter </p>
         </div>
       </div>
     </div>

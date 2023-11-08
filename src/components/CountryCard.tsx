@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAtom } from "jotai";
 import { useInView } from "framer-motion";
 
@@ -17,11 +17,28 @@ interface Props extends CountryInfos {
 export default function CountryCard(props: Props) {
   const cardRef = useRef<HTMLButtonElement | null>(null);
   const [selectedCountry, setSelectedCountry] = useAtom(selectedCountryAtom);
+  const [isCardDisabled, setIsCardDisabled] = useState(false);
 
   const isCardInView = useInView(cardRef, {
     once: true,
     margin: "0px 0px -50px 0px",
   });
+
+  const [didMount, setDidMount] = useState(false);
+
+  useEffect(() => {
+    setDidMount(true);
+  }, []);
+
+  useEffect(() => {
+    if (didMount) {
+      selectedCountry == ""
+        ? setTimeout(() => {
+            setIsCardDisabled(false);
+          }, 500)
+        : setIsCardDisabled(true);
+    }
+  }, [selectedCountry]);
 
   return (
     <motion.button
@@ -29,6 +46,7 @@ export default function CountryCard(props: Props) {
       tabIndex={0}
       className="default-background default-hover flex flex-col rounded-md overflow-hidden h-full card-hover"
       onClick={() => setSelectedCountry(standardiseString(props.name))}
+      disabled={isCardDisabled}
       variants={{
         inView: { opacity: 1, translateY: 0 },
         outOfView: { opacity: 0.05, translateY: 100 },
