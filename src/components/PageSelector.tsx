@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { useAtom } from "jotai";
+import { selectedCountryAtom } from "../App";
 
 interface Props {
   countryCount: number;
@@ -13,6 +15,8 @@ export default function PageSelector(props: Props) {
   const [pageCount, setPageCount] = useState<number>(
     props.countryCount / props.cardCount
   );
+
+  const [selectedCountry] = useAtom(selectedCountryAtom);
 
   function changeCurrentPageHandler(newCurrentPage: number | false) {
     if (
@@ -44,7 +48,7 @@ export default function PageSelector(props: Props) {
         className="default-fill p-2 hidden sm:block"
         title={props.currentPage != 0 ? "Go to First page" : ""}
         onClick={() => changeCurrentPageHandler(0)}
-        disabled={props.currentPage == 0}
+        disabled={props.currentPage == 0 || selectedCountry != ""}
       >
         {/* Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc */}
         <svg
@@ -59,7 +63,7 @@ export default function PageSelector(props: Props) {
       <button
         className="default-background default-hover rounded-md p-4 flex justify-center items-center gap-2"
         onClick={() => changeCurrentPageHandler(props.currentPage - 1)}
-        disabled={props.currentPage == 0}
+        disabled={props.currentPage == 0 || selectedCountry != ""}
       >
         {/* Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc */}
         <svg
@@ -89,6 +93,7 @@ export default function PageSelector(props: Props) {
             (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
           }
           onKeyDown={(e) => e.key === "Enter" && pageInputRef.current?.blur()}
+          disabled={selectedCountry != ""}
         />
         <label htmlFor="page-input">{`/ ${Math.ceil(
           props.countryCount / props.cardCount
@@ -98,7 +103,7 @@ export default function PageSelector(props: Props) {
       <button
         className="default-background default-hover rounded-md p-4 flex justify-center items-center gap-2"
         onClick={() => changeCurrentPageHandler(props.currentPage + 1)}
-        disabled={props.currentPage > pageCount - 1}
+        disabled={props.currentPage > pageCount - 1 || selectedCountry != ""}
       >
         Next page
         {/* Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc */}
@@ -119,7 +124,7 @@ export default function PageSelector(props: Props) {
             Math.ceil(props.countryCount / props.cardCount - 1)
           )
         }
-        disabled={props.currentPage > pageCount - 1}
+        disabled={props.currentPage > pageCount - 1 || selectedCountry != ""}
       >
         {/* Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc */}
         <svg

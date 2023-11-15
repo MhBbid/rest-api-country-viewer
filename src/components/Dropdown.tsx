@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { useAtom } from "jotai";
+import { selectedCountryAtom } from "../App";
+
 import { motion } from "framer-motion";
 import DropdownIcon from "../assets/DropdownIcon";
 
@@ -13,6 +16,7 @@ interface Props {
 export default function Dropdown(props: Props) {
   const [selectedItem, setSelectedItem] = useState(-1);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedCountry] = useAtom(selectedCountryAtom);
 
   const dropdownToggleRef = useRef<HTMLButtonElement | null>(null);
   const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
@@ -31,6 +35,7 @@ export default function Dropdown(props: Props) {
           setIsMenuOpen((prev: boolean) => !prev);
           dropdownToggleRef.current && dropdownToggleRef.current.focus();
         }}
+        disabled={selectedCountry != ""}
         className="default-background default-hover rounded-lg py-4 px-6 h-full w-full flex items-center"
       >
         <div className="flex gap-3 items-center w-full">
@@ -82,7 +87,7 @@ export default function Dropdown(props: Props) {
               setSelectedItem(index);
               setIsMenuOpen(false);
             }}
-            disabled={!isMenuOpen}
+            disabled={!isMenuOpen || selectedCountry != ""}
           >
             <div className="min-h-full">
               <svg

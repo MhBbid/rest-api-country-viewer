@@ -26,11 +26,10 @@ export default async function useCountriesData() {
 
   // couple of tweeks to the data
   countriesFetched.data.forEach((country: any) => {
-    country.capital == "" ? (country.capital = "None") : null;
-    country.subregion == "" ? (country.subregion = "None") : null;
-    country.currencies == "" ? (country.currencies = "None") : null;
-    country.languages == "" ? (country.languages = "None") : null;
-    country.borders == "" ? (country.borders = "None") : null;
+    country.capital == "" ? (country.capital = "Undefined") : null;
+    country.subregion == "" ? (country.subregion = "Undefined") : null;
+    country.currencies == "" ? (country.currencies = "Undefined") : null;
+    country.languages == "" ? (country.languages = "Undefined") : null;
 
     country.nativeName = Object.values(country.name.nativeName)[0];
     country.nativeName != undefined

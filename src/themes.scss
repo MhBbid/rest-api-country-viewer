@@ -7,7 +7,7 @@ $theme-transition: all 250ms, background-color 500ms, color 500ms, box-shadow 50
 $light-colors: (
 	"background": hsl(0, 0%, 90%),
 	"text": hsl(200, 15%, 8%),
-	"lighter-text": hsl(0, 0%, 42%),
+	"lighter-text": hsl(0, 0%, 40%),
 	"scrollbar-thumb": hsl(0, 0%, 100%),
 	"scrollbar-track": hsl(0, 0%, 65%),
 
@@ -15,21 +15,21 @@ $light-colors: (
 	"elements-hover": hsl(0, 0%, 100%),
 	"element-boxshadow": hsla(0, 0%, 0%, 20%),
 	"lighter-elements": hsl(0, 0%, 65%),
-	"darkest-elements": hsl(0, 0%, 65%)
+	"darker-elements": hsl(0, 0%, 65%)
 	);
 	
 $dark-colors: (
 	"background": hsl(207, 26%, 17%),
 	"text": hsl(0, 0%, 100%),
-	"lighter-text": hsl(0, 0%, 66%),
+	"lighter-text": hsl(0, 0%, 70%),
 	"scrollbar-thumb": hsl(209, 10%, 38%),
 	"scrollbar-track": hsl(209, 26%, 15%),
 		
 	"elements": hsl(209, 23%, 22%),
 	"elements-hover": hsl(209, 23%, 26%),
 	"element-boxshadow": hsla(0, 0%, 0%, 20%),
-	"lighter-elements": hsl(209, 15%, 55%),
-	"darkest-elements": hsl(209, 26%, 25%)
+	"lighter-elements": hsl(209, 15%, 65%),
+	"darker-elements": hsl(209, 26%, 14%)
 );
 
 svg {
@@ -55,8 +55,8 @@ svg {
 		&:disabled {
 			background-color: map-get($theme-colors, "background");
 			color: map-get($theme-colors, "lighter-text");
-			& svg {
-				fill: map-get($theme-colors, "darkest-elements");
+			svg {
+				fill: map-get($theme-colors, "lighter-text");
 			}
 		}
 	}
@@ -72,7 +72,9 @@ svg {
 	}
 
 	@media (hover: hover) {
-		.default-hover:hover, .default-hover:focus-visible, div.default-hover:focus-within {
+		.default-hover:hover,
+		.default-hover:focus-visible,
+		div.default-hover:focus-within {
 			&:not(:disabled) {
 				background-color: map-get($theme-colors, "elements-hover");
 			}
@@ -90,16 +92,16 @@ svg {
 		background-color: map-get($theme-colors, "background");
 	}
 
+	.darkest-background {
+		background-color: map-get($theme-colors, "darker-elements");
+	}
+
 	::-webkit-scrollbar-thumb {
 		background-color: map-get($theme-colors, "scrollbar-thumb");
 	}
 
 	::-webkit-scrollbar-track {
 		background-color: map-get($theme-colors, "scrollbar-track");
-	}
-
-	.error-background {
-		background-color: map-get($theme-colors, "error")
 	}
 }
 

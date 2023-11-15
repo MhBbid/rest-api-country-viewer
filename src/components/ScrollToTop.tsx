@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { useAtom } from "jotai";
+import { selectedCountryAtom } from "../App";
+
 import { useScroll, useMotionValueEvent } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   const { scrollY } = useScroll();
+  const [selectedCountry] = useAtom(selectedCountryAtom);
 
   useMotionValueEvent(scrollY, "change", (latestScroll) => {
     latestScroll > 200 ? setVisible(true) : setVisible(false);
@@ -15,6 +19,7 @@ export default function ScrollToTop() {
       className="default-background default-hover rounded-md p-4 w-12 z-40 fixed top-[80vh] left-[5vw] flex justify-center items-center"
       title={visible ? "Scroll to Top" : ""}
       onClick={() => scrollTo({ top: 0, behavior: "smooth" })}
+      disabled={selectedCountry != ""}
       variants={{
         visible: { opacity: 1, translateY: 0, display: "flex" },
         hidden: {

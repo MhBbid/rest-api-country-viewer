@@ -1,6 +1,9 @@
 import React from "react";
 import { useEffect, useRef } from "react";
 
+import { useAtom } from "jotai";
+import { selectedCountryAtom } from "../App";
+
 import { SearchBarProps } from "../util/customTypes";
 import { useInView } from "framer-motion";
 
@@ -10,6 +13,7 @@ export default function SearchBar(props: SearchBarProps) {
   const searchBarRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isSearchBarInView = useInView(searchBarRef);
+  const [selectedCountry] = useAtom(selectedCountryAtom);
 
   useEffect(() => {
     !isSearchBarInView && inputRef.current && inputRef.current.blur();
@@ -33,7 +37,9 @@ export default function SearchBar(props: SearchBarProps) {
         id="search-input"
         ref={inputRef}
         onChange={handleSearchChange}
+        disabled={selectedCountry != ""}
         type="search"
+        autoComplete="off"
         placeholder="Search for a country..."
         className="bg-transparent w-full outline-none"
       />

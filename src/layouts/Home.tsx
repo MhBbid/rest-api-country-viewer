@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import { useState, useEffect } from "react";
 import { atom, useAtom } from "jotai";
@@ -40,6 +40,8 @@ export default function Home(props: Props) {
 
   const [didMount, setDidMount] = useState(false);
 
+  const homeRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     setDidMount(true);
   }, []);
@@ -65,7 +67,7 @@ export default function Home(props: Props) {
   }, [countries, currentPage]);
 
   return (
-    <div className="grid homepage-grid py-8">
+    <div ref={homeRef} className="grid homepage-grid py-8">
       <SearchFilters
         searchQueryState={searchQuery}
         onSearchChange={(e: React.ChangeEvent<HTMLInputElement>) =>

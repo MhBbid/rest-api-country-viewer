@@ -6,7 +6,7 @@ import { standardiseString } from "../util/misc";
 import { selectedCountryAtom } from "../App";
 import { CountryInfos } from "../util/customTypes";
 
-import CountryInfo from "./CountryInfo";
+import CountryCardInfo from "./CountryCardInfo";
 import { motion } from "framer-motion";
 
 interface Props extends CountryInfos {
@@ -24,20 +24,18 @@ export default function CountryCard(props: Props) {
     margin: "0px 0px -50px 0px",
   });
 
-  const [didMount, setDidMount] = useState(false);
+  const [, setDidMount] = useState(false);
 
   useEffect(() => {
     setDidMount(true);
   }, []);
 
   useEffect(() => {
-    if (didMount) {
-      selectedCountry == ""
-        ? setTimeout(() => {
-            setIsCardDisabled(false);
-          }, 500)
-        : setIsCardDisabled(true);
-    }
+    selectedCountry == ""
+      ? setTimeout(() => {
+          setIsCardDisabled(false);
+        }, 400)
+      : setIsCardDisabled(true);
   }, [selectedCountry]);
 
   return (
@@ -55,19 +53,19 @@ export default function CountryCard(props: Props) {
       animate={isCardInView ? "inView" : "outOfView"}
       transition={{
         duration: 0.15,
-        delay: 0.05 + (props.index % props.columnCount) * 0.1,
+        delay: 0.1 + (props.index % props.columnCount) * 0.1,
         ease: "easeOut",
       }}
     >
-      <div className="darker-background h-[45%] w-full">
+      <div className="darkest-background h-[45%] w-full">
         <img
+          className="h-full w-full object-cover"
           loading="lazy"
           src={props.flags.png}
-          className="h-full w-full object-cover"
         />
       </div>
 
-      <CountryInfo
+      <CountryCardInfo
         flags={props.flags}
         name={props.name}
         nativeName={props.nativeName}

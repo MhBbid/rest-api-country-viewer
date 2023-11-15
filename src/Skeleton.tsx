@@ -36,6 +36,10 @@ export default function Skeleton(props: Props) {
               className="default-background flex flex-col rounded-md overflow-hidden h-full cursor-pointer card-hover focus-visible:scale-105"
               tabIndex={0}
             >
+              {
+                /*getting rid of errors / warning for vite, nothing can be left unused*/ element
+              }
+
               {/* image skeleton */}
               <div className="darker-background h-52" />
 

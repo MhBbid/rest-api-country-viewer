@@ -1,21 +1,24 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+
+import { atom, useAtom } from "jotai";
 import { atomWithHash } from "jotai-location";
 
 import useCountriesData from "./hooks/useCountriesData";
 import sortableData from "./util/sortableData";
 import useTheme from "./hooks/useTheme";
-import { MaxCardsPerPage } from "./util/misc";
+import { MAX_CARDS_PER_PAGE } from "./util/misc";
 import CountryDetails from "./layouts/CountryDetails";
 
 const Skeleton = React.lazy(() => import("./Skeleton"));
 const TopNav = React.lazy(() => import("./layouts/TopNav"));
 const Home = React.lazy(() => import("./layouts/Home"));
 
+export const countriesDataAtom = atom<sortableData | null>(null);
 export const selectedCountryAtom = atomWithHash("country", "");
 
 export default function App() {
-  const [countriesData, setCountriesData] = useState<sortableData>();
+  const [countriesData, setCountriesData] = useAtom(countriesDataAtom);
   const { currentTheme, changeTheme } = useTheme();
 
   useEffect(() => {
@@ -33,10 +36,10 @@ export default function App() {
           <div className="h-20"></div>
 
           <CountryDetails />
-          <Home countriesData={countriesData} cardCount={MaxCardsPerPage} />
+          <Home countriesData={countriesData} cardCount={MAX_CARDS_PER_PAGE} />
         </>
       ) : (
-        <Skeleton skeletonCardCount={MaxCardsPerPage} />
+        <Skeleton skeletonCardCount={MAX_CARDS_PER_PAGE} />
       )}
     </>
   );

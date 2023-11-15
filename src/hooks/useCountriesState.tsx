@@ -10,9 +10,9 @@ import { standardiseString } from "../util/misc";
 
 export default function useCountriesState(countriesFetched: sortableData) {
   const [countries, setFiltredCountries] = useState(countriesFetched.data);
-  const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
-  const [regionalFilter, setRegionalFilter] = useAtom(regionAtom);
-  const [sorting, setSorting] = useAtom(sortingAtom);
+  const [searchQuery] = useAtom(searchQueryAtom);
+  const [regionalFilter] = useAtom(regionAtom);
+  const [sorting] = useAtom(sortingAtom);
 
   function changeCountries() {
     sortCountriesFetched();

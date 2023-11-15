@@ -5,15 +5,14 @@ import { selectedCountryAtom } from "../App.tsx";
 import { useAtom } from "jotai";
 
 import ThemeIcon from "../assets/ThemeIcon.tsx";
-import { Theme } from "../util/customTypes.ts";
 
 interface Props {
-  currentTheme: Theme;
+  currentTheme: string;
   changeTheme: Function;
 }
 
 export default function TopNav(props: Props) {
-  const [selectedCountry, setSelectedCountry] = useAtom(selectedCountryAtom);
+  const [selectedCountry] = useAtom(selectedCountryAtom);
   const [visible, setVisible] = useState(true);
   const { scrollY } = useScroll();
 

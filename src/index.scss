@@ -24,8 +24,12 @@ body {
 	margin: 0;
 }
 
-*:disabled {
+*:disabled img {
 	opacity: 0.5;
+}
+
+img::before {
+	opacity: 0;
 }
 
 /* ---------- Scrollbar ---------- */
@@ -73,10 +77,10 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 @media (hover: hover) {
-	.card-hover:hover,
-	.card-hover:focus-visible {
-		&:not(:disabled) {
-			scale: 1.05;
+	:not(:disabled) {
+		.card-hover:hover,
+		.card-hover:focus-visible {
+			scale: 1.04;
 		}
 	}
 }

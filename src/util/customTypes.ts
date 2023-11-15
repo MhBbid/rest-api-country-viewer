@@ -1,10 +1,9 @@
 import React from "react";
 
-export type Theme = "light" | "dark";
 export type ScrollDirection = "down" | "up";
 
 export interface CountryInfos {
-	flags: any;
+	flags: countryFlags;
   name: string;
 	nativeName: string
   population: number;
@@ -13,19 +12,19 @@ export interface CountryInfos {
 }
 
 export interface CountryDetails {
-	flags: any;
+	flags: countryFlags;
 	name: string;
-	nativeName: string
+	nativeName: string;
+	cca3: string;
+	capital: string;
 	population: number;
+	
 	region: string;
 	subregion: string;
-	
-	capital: string;
-	topLevelDomain: string;
-	currencies: string[];
+	currencies: currencies | "None";
 	languages: string[];
-	borderCountries: string[];
-	[key: string]: any
+	tld: string[];
+	borders: string[] | "";
 }
 
 export interface SearchBarProps {
@@ -39,4 +38,14 @@ export interface RegionPickerProps {
 
 export interface SortingPickerProps {
 	onSortingChange: Function;
+}
+
+interface countryFlags {
+	png: string,
+	svg: string
+}
+
+interface currencies {
+	name: string;
+	symbol: string;
 }
